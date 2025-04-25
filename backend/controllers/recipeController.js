@@ -227,7 +227,7 @@ const updateOwnedRecipe = async (req, res) => {
         const email = req.body.email;
 
         // HANDLING IMAGE
-        const image = req.file;
+        const image = req.file ? req.file.filename : null;
 
         // NOTE: PARSE INGREDIENT AND NUTRITIONAL INFO IF THEY ARE SENT AS A JSON STRING
         const prepInstructions = req.body.cookInstructions ? JSON.parse(req.body.prepInstructions) : [];
@@ -286,6 +286,7 @@ const updateOwnedRecipe = async (req, res) => {
         if (image) {
             updateData.image = image;
         }
+        console.log(updateData)
 
         // UPDATING RECIPE
         const updatedRecipe = await recipeModel.findOneAndUpdate(
@@ -293,7 +294,7 @@ const updateOwnedRecipe = async (req, res) => {
             updateData,
             { new: true }
         )
-
+        
         // NOTE: CHECKS IF RECIPE EXISTS IN DB
         if (!updatedRecipe) {
             return res.status(404).json({error: 'Couldn\'t update recipe.'})

@@ -64,7 +64,7 @@ const UserProfile = ({ setShowNavbar }) => {
                 // CHECKING IF RESPONSE IS OKAY
                 if (response.ok) {
                     const recipeArray = []
-                    // CHECKS ALL RECIPES IF THE RECIPES STATUS IS NOT DENIED
+                    // CHECKS ALL RECIPES IF THE RECIPES BELONG TO USER
                     for (var i = 0; i < json.length; i++) {
                         if (userID && json[i].postedBy.toString() === userID.toString()) {
                             recipeArray.push(json[i])
